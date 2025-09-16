@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shundo Builder Page</title>
+</head>
+<body>
+
+  <h3>Build Your Own Shundo!!</h3>
+
+  <div id="id_interface">
+
+    <form id="pokeForm">
+
+      <select id="id_type" name="pokemon_type">
+      {% for poke in pokes %}
+          <option value="{{poke}}">{{poke}}</option>
+      {% endfor %}
+      </select>
+
+      <br>
+      <label for="id_cp">Select CP:</label>
+      <input type="number" name="pokemon_cp" id="id_cp"><br>
+
+      <button type="submit" id="id_btn">Submit</button>
+
+    </form>
+    <p id="added_status"></p>
+  </div>
+
+  <div>
+    <button type="button" id="get_shundos_btn">Get All Shundos</button>
+    <div id="shundos_display"></div>
+  </div>
+
+  <div>
+    <p>
+      You can find the list of all of the Shundos 
+      <a href="get_all">here</a>
+    <p>
+  </div>
+
+  <script>
+    document.getElementById('pokeForm').addEventListener('submit', async function(event) {
+      event.preventDefault(); // PREVENT THE FORM FROM DOING A NORMAL SUBMIT
+
+      const formData = new FormData(this);    
+      const path = 'http://127.0.0.1:8080/add_shundo';
+      const params = {
+        method: 'POST',
+        body: formData
+      };
+      const response = await fetch(path, params);   
+      const data = await response.json();           
+
+      console.log(data);
+
+      if (data.ok_status) {
+        document.querySelector('#added_status').innerHTML = 'Pokemon Added';
+      } else {
+        document.querySelector('#added_status').innerHTML = 'Pokemon NOT Added';
+      }
+    });
+
+    document.getElementById('get_shundos_btn').addEventListener('click', async function() {
+      const path = 'http://127.0.0.1:8080/get_all';
+      const response = await fetch(path);   
+      const data = await response.json();           
+
+      console.log(data);
+
+      const shundos = data.shundos;
+      const shundosList = shundos.map(shundo => `<p>${shundo.pokemon} - CP: ${shundo.cp}</p>`).join('');
+      document.querySelector('#shundos_display').innerHTML = shundosList;
+    });
+  </script>
+
+</body>
+</html>

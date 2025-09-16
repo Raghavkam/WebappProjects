@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fetch Page</title>
+</head>
+<body>
+
+  <h3>Retrieve a Value from the Server</h3>
+
+  <div id="id_interface">
+    <p>
+      Pressing the button gets the value from the server.
+    </p>
+    <button type="button" id="id_btn">Press Me!</button>
+  </div>
+
+  <div id="data_display">
+    <!-- Placeholder for the fetched data -->
+    <p>Your number: <span id="number_placeholder">---</span></p>
+    <p>Your pet: <span id="pet_placeholder">---</span></p>
+  </div>
+
+  <div>
+    <p>
+      (btw, <a href='worker_route'>this</a> is the page your server is fetching!)
+    </p>
+  </div>
+
+  <script>
+    document.querySelector('#id_btn').onclick = async (ev) => {
+      const path = 'http://127.0.0.1:8080/worker_route';
+        const response = await fetch(path);  // GETS A RESPONSE OBJECT
+        const data = await response.json();  // WAITS FOR ACTUAL DATA
+
+        // Populate placeholders with fetched data
+        document.querySelector('#number_placeholder').innerText = data.your_number;
+        document.querySelector('#pet_placeholder').innerText = data.your_pet;
+
+    }
+  </script>
+
+</body>
+</html>

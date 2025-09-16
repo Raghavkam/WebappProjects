@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>cookiepage</title>
+</head>
+<body>
+  <h3>page with a numeric input</h3>
+  <input type="number" id="id_numinput" name="val_numinput" value="{{cookie_value}}">
+  <script>
+    function updateCookie(value) {
+      document.cookie = "number_count=" + value + "; path=/";
+    }
+    document.getElementById('id_numinput').addEventListener('input', function() 
+      {updateCookie(this.value);
+        });
+  </script>
+</body>
+</html>

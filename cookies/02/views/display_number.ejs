@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cookie Page</title>
+</head>
+<body>
+
+  <h3>Page with a numeric input</h3>
+
+
+  <input type="number" id="id_numinput" name="val_numinput" value="<%= cookie_value %>">
+
+  <script>
+
+    const numInput = document.getElementById('id_numinput');
+
+
+    numInput.value = localStorage.getItem('numInputValue') || '';
+
+    numInput.addEventListener('change', function() {
+      localStorage.setItem('numInputValue', numInput.value);
+    });
+  </script>
+
+</body>
+</html>

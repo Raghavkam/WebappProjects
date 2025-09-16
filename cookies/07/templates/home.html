@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fetch Page</title>
+</head>
+<body>
+
+  <h3>Retrieve a Value from the Server</h3>
+
+  <div id="id_interface">
+    <p>
+      Press the button to get the value from the server.
+    </p>
+    <button type="button" id="id_btn">Press Me!</button>
+  </div>
+
+  <div>
+    <p>
+      The current number is
+      <span id="cur_no"></span>,
+      and the current meal choice is
+      <span id="cur_meal"></span>
+    </p>
+  </div>
+
+  <div>
+    <p>
+      (btw, <a href='fetch_route'>this</a> is the page your server is fetching!)
+    </p>
+  </div>
+
+  <script>
+    document.querySelector('#id_btn').onclick = async (ev) => {
+      const path = 'http://127.0.0.1:8080/fetch_route'
+      const response = await fetch(path); // GETS A RESPONSE OBJECT
+      const data = await response.json(); // WAITS FOR ACTUAL DATA
+
+      console.log(data)
+
+      let counter_span = document.querySelector("#cur_no")
+      let meal_span = document.querySelector("#cur_meal")
+      
+      counter_span.innerHTML = data.count;
+      meal_span.innerHTML = data.meal_choice;
+    }
+  </script>
+
+</body>
+</html>
