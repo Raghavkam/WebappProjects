@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wordle</title>
+</head>
+<body>
+  <h1>Wordle</h1>
+  <div id="input-container" class="input-group">
+    <input type="text" id="pattern-input" placeholder="Enter pattern like a___b" maxlength="5">
+  </div>
+  <button id="search-button">Find Words</button>
+  <div id="results"></div>
+
+  <script>
+    document.getElementById('search-button').addEventListener('click', () => {
+      const pattern = document.getElementById('pattern-input').value;
+
+      // Ensure the pattern is exactly 5 characters long
+      if (pattern.length !== 5) {
+        alert('Please enter a pattern with exactly 5 characters.');
+        return;
+      }
+
+      const conditions = {
+        known: pattern.split('').map(char => char === '_' ? null : char),
+        includes: [],
+        excludes: []
+      };
+
+      fetch('/wordfinder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(conditions)
+      })
+      .then(response => response.json())
+      .then(data => {
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = '<p>Possible words: ' + data.join(', ') + '</p>';
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  </script>
+</body>
+</html>
