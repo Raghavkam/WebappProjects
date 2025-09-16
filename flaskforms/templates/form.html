@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meal Ticket Form</title>
+</head>
+<body>
+    <h1>Meal Order</h1>
+    <form action="/result" method="get">
+
+        <label for="meal_type">Choose a meal:</label>
+        <select name="meal_type" id="meal_type">
+            <option value="breakfast">Breakfast - $10</option>
+            <option value="lunch">Lunch - $15</option>
+            <option value="dinner">Dinner - $20</option>
+        </select>
+
+        <br>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="1" value="1">
+        <br>
+
+        <input type="checkbox" id="senior_discount" name="senior_discount">
+        <label for="senior_discount">Senior Discount (10%)</label>
+        <br>
+
+        <input type="submit" value="Calculate Price">
+    </form>
+</body>
+</html>
