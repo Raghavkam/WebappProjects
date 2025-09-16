@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Weather Forecast for {{ latitude }}, {{ longitude }}</h1>
+    <ul>
+        {% for period in periods %}
+            <li>
+                <strong>{{ period['name'] }}:</strong> {{ period['detailedForecast'] }}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('weather_form') }}">Back to Form</a>
+</body>
+</html>
