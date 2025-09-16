@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 20px;
+    }
+    
+    h1 {
+        color: #333;
+    }
+
+    h2 {
+        font-size: 1em; 
+        font-weight: bold; 
+    }
+
+    p {
+        font-size: 1em; 
+    }
+    div {
+        border: 1px solid black; 
+        padding: 10px; 
+    }
+    </style>
+</head>
+<body>  
+    <h1>Forecast</h1>
+    <% for (const [num] of Object.entries(data)) { %>
+        <div>
+            <h2>Day <%= num %>: <%= data[num].day %></h2>
+            <p>Temperature: <%= data[num].temperature %> <%= data[num].temperatureUnit %></p>
+            <p>Precipitation Probability: <%= data[num].precipitationProbability %>%</p>
+            <p>Detailed Forecast: <%= data[num].detailedForecast %></p>
+        </div>
+    <% } %>
+</body>
+</html>
